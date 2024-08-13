@@ -4,8 +4,8 @@
 #include <ctime>
 #include <cmath>
 #include <algorithm>
+#include <chrono>
 
-// Function to generate a random matrix of size rows x cols with values between p and q
 std::vector<std::vector<double>> generateRandomMatrix(int rows, int cols, double p, double q) {
     std::vector<std::vector<double>> matrix(rows, std::vector<double>(cols));
     for (int i = 0; i < rows; ++i) {
@@ -131,6 +131,4 @@ int main() {
         // Print out the results
         std::cout << size << ", " << duration1.count() << ", " << duration2.count() << "\n";
     }
-
-    return 0;
 }
