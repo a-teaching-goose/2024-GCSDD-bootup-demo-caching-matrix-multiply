@@ -46,10 +46,12 @@ void multiplyMatricesBlock(
                 // Multiply the inner blocks
                 // C[i][j] += A[i][x] * B[x][j]
                 for (int ii = i; ii < std::min(i + blockSize, m); ++ii) {
-                    for (int xx = x; xx < std::min(x + blockSize, k); ++xx) {
-                        for (int jj = j; jj < std::min(j + blockSize, n); ++jj) {
-                            C[ii][jj] += A[ii][xx] * B[xx][jj];
+                    for (int jj = j; jj < std::min(j + blockSize, n); ++jj) {
+                        double sum = C[ii][jj];
+                        for (int xx = x; xx < std::min(x + blockSize, k); ++xx) {
+                            sum += A[ii][xx] * B[xx][jj];
                         }
+                        C[ii][jj] = sum;
                     }
                 }
             }
@@ -86,7 +88,7 @@ int main() {
     int start = 256;
     int end = 2048;
     int step = 256;
-    int blockSize = 8;
+    int blockSize = 64;
     double p = -1.0, q = 1.0;
 
     for (int size = start; size <= end; size += step) {
