@@ -47,11 +47,10 @@ void multiplyMatricesBlock(
                 // C[i][j] += A[i][x] * B[x][j]
                 for (int ii = i; ii < std::min(i + blockSize, m); ++ii) {
                     for (int jj = j; jj < std::min(j + blockSize, n); ++jj) {
-                        double sum = C[ii][jj];
                         for (int xx = x; xx < std::min(x + blockSize, k); ++xx) {
-                            sum += A[ii][xx] * B[xx][jj];
+                            double a = A[ii][xx];
+                            C[ii][jj] += a * B[xx][jj];
                         }
-                        C[ii][jj] = sum;
                     }
                 }
             }
