@@ -2,9 +2,8 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <chrono>
-#include <cmath> // For fabs and std::numeric_limits
-#include <algorithm> // For std::min
+#include <cmath>
+#include <algorithm>
 
 // Function to generate a random matrix of size rows x cols with values between p and q
 std::vector<std::vector<double>> generateRandomMatrix(int rows, int cols, double p, double q) {
@@ -81,13 +80,15 @@ bool verifyMatrixMultiplication(
     return true;
 }
 
+#define VERIFY
+
 int main() {
     srand(static_cast<unsigned int>(time(0)));
 
-    int start = 512;
-    int end = 8192;
-    int step = 512;
-    int blockSize = 256;
+    int start = 128;
+    int end = 2048;
+    int step = 128;
+    int blockSize = 256;    // adjust this on different machine
     double p = -1.0, q = 1.0;
 
     for (int size = start; size <= end; size += step) {
@@ -113,9 +114,11 @@ int main() {
 
         multiplyMatricesBlock(A, B, C2, m, k, n, blockSize);
 
+
         auto end2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration2 = end2 - start2;
 
+#ifdef VERIFY
         // Verify the result
         if (!verifyMatrixMultiplication(A, B, C1, m, k, n)) {
             std::cerr << "Verification failed for standard multiplication at size " << size << "\n";
@@ -123,6 +126,7 @@ int main() {
         if (!verifyMatrixMultiplication(A, B, C2, m, k, n)) {
             std::cerr << "Verification failed for block multiplication at size " << size << "\n";
         }
+#endif
 
         // Print out the results
         std::cout << size << ", " << duration1.count() << ", " << duration2.count() << "\n";
