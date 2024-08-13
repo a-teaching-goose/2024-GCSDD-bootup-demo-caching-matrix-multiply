@@ -84,10 +84,10 @@ bool verifyMatrixMultiplication(
 int main() {
     srand(static_cast<unsigned int>(time(0)));
 
-    int start = 256;
-    int end = 2048;
-    int step = 256;
-    int blockSize = 64;
+    int start = 512;
+    int end = 8192;
+    int step = 512;
+    int blockSize = 256;
     double p = -1.0, q = 1.0;
 
     for (int size = start; size <= end; size += step) {
