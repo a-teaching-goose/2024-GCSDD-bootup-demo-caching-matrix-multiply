@@ -46,9 +46,9 @@ void multiplyMatricesBlock(
                 // Multiply the inner blocks
                 // C[i][j] += A[i][x] * B[x][j]
                 for (int ii = i; ii < std::min(i + blockSize, m); ++ii) {
-                    for (int jj = j; jj < std::min(j + blockSize, n); ++jj) {
-                        for (int xx = x; xx < std::min(x + blockSize, k); ++xx) {
-                            double a = A[ii][xx];
+                    for (int xx = x; xx < std::min(x + blockSize, k); ++xx) {
+                        double a = A[ii][xx];
+                        for (int jj = j; jj < std::min(j + blockSize, n); ++jj) {
                             C[ii][jj] += a * B[xx][jj];
                         }
                     }
